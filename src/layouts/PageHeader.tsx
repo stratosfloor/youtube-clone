@@ -10,6 +10,7 @@ import {
 import logo from '../assets/Logo.png';
 import { Button } from '../components/Button';
 import { useState } from 'react';
+import { useSidebarContext } from '../contexts/SidebarContext';
 
 export function PageHeader() {
 	const [showFullWidthSearch, setShowFullWidthSearch] =
@@ -17,18 +18,7 @@ export function PageHeader() {
 
 	return (
 		<div className="flex gap-10 lg-gap-20 justify-between pt-2 mx-4 mb-6">
-			<div
-				className={`gap-4 items-center flex-shrink-0 ${
-					showFullWidthSearch ? 'hidden' : 'flex'
-				}`}
-			>
-				<Button>
-					<Menu />
-				</Button>
-				<a href="/">
-					<img src={logo} className="h-6"></img>{' '}
-				</a>
-			</div>
+			<PageHeaderFirstSection hidden={showFullWidthSearch} />
 			<form
 				className={`gap-4 flex-grow justify-center ${
 					showFullWidthSearch ? 'flex' : 'hidden md:flex'
@@ -85,6 +75,31 @@ export function PageHeader() {
 					<UserCircle />
 				</Button>
 			</div>
+		</div>
+	);
+}
+
+type PageHeaderFirstSectionProps = {
+	hidden?: boolean;
+};
+
+export function PageHeaderFirstSection({
+	hidden = false,
+}: PageHeaderFirstSectionProps) {
+	const { toggle } = useSidebarContext();
+
+	return (
+		<div
+			className={`gap-4 items-center flex-shrink-0 ${
+				hidden ? 'hidden' : 'flex'
+			}`}
+		>
+			<Button onClick={toggle} variant="ghost">
+				<Menu />
+			</Button>
+			<a href="/">
+				<img src={logo} className="h-6"></img>{' '}
+			</a>
 		</div>
 	);
 }
