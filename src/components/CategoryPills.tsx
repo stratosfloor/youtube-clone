@@ -22,7 +22,7 @@ export function CategoryPills({
 	useEffect(() => {
 		if (containerRef.current == null) return;
 
-		const observer = new ResizeObserver((entries) => {
+		const observer = new ResizeObserver(() => {
 			const container = containerRef.current;
 			if (container == null) return;
 
